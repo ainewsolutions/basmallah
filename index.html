@@ -790,6 +790,7 @@
                     <div class="order-type-tabs">
                         <button class="type-tab active" data-type="delivery">دليفري 🛵</button>
                         <button class="type-tab" data-type="takeaway">تيك أواي 🛍️</button>
+                        <button class="type-tab" data-type="dine_in">صالة 🍽️</button>
                     </div>
                     
                     <div id="deliveryFields" class="form-fields">
@@ -802,6 +803,10 @@
                     <div id="takeawayFields" class="form-fields hidden">
                         <input type="text" id="takeawayName" placeholder="اسم المستلم *" required>
                         <textarea id="takeawayNotes" placeholder="ملاحظات الطلب (اختياري)" rows="1"></textarea>
+                    </div>
+
+                    <div id="dineInFields" class="form-fields hidden">
+                        <input type="number" id="tableNumber" placeholder="رقم الطاولة (اختياري)">
                     </div>
                 </div>
             </div>
@@ -872,7 +877,8 @@
                     { id: 'pch3', name: 'بيتزا مشكل فراخ', desc: 'مشكل فراخ - صوص طماطم - فلفل - زيتون - موتزاريلا', sizes: { 'صغير': 115, 'وسط': 150, 'كبير': 226 } },
                     { id: 'pch4', name: 'بيتزا فراخ رانش (جديد)', desc: 'فراخ رانش - صوص طماطم - فلفل - زيتون - موتزاريلا', sizes: { 'صغير': 130, 'وسط': 160, 'كبير': 236 } },
                     { id: 'pch5', name: 'بيتزا ديك رومي', desc: 'ديك رومي - صوص طماطم - فلفل - زيتون - موتزاريلا', sizes: { 'صغير': 115, 'وسط': 150, 'كبير': 221 } },
-                    { id: 'pch6', name: 'بيتزا فراخ مخصوص', desc: 'فراخ - سوسيس - مشروم - خضروات', sizes: { 'صغير': 125, 'وسط': 160, 'كبير': 236 } }
+                    { id: 'pch6', name: 'بيتزا فراخ مخصوص', desc: 'فراخ - سوسيس - مشروم - خضروات', sizes: { 'صغير': 125, 'وسط': 160, 'كبير': 236 } },
+                    { id: 'pch7', name: 'بيتزا كرسبي', desc: 'فراخ كرسبي - صوص طماطم - فلفل - زيتون - موتزاريلا', sizes: { 'صغير': 130, 'وسط': 160, 'كبير': 236 } }
                 ]
             },
             {
@@ -1095,6 +1101,7 @@
             typeTabs: document.querySelectorAll('.type-tab'),
             deliveryFields: document.getElementById('deliveryFields'),
             takeawayFields: document.getElementById('takeawayFields'),
+            dineInFields: document.getElementById('dineInFields'),
             cartTotalDisplay: document.getElementById('cartTotal'),
             checkoutBtn: document.getElementById('checkoutBtn'),
             themeToggle: document.getElementById('themeToggle'),
@@ -1417,7 +1424,7 @@
                 customerDetails = `*الطلب:* دليفري 🛵\n*الاسم:* ${nameInput.value}\n*الموبايل:* ${phoneInput.value}\n*العنوان:* ${addressInput.value}\n`;
                 if(notesInput.value.trim()) customerDetails += `*ملاحظات إضافية:* ${notesInput.value}\n`;
 
-            } else {
+            } else if (activeTab === 'takeaway') {
                 const takeawayNameInput = document.getElementById('takeawayName');
                 const takeawayNotes = document.getElementById('takeawayNotes');
                 
@@ -1433,6 +1440,10 @@
 
                 customerDetails = `*الطلب:* تيك أواي 🛍️\n*اسم المستلم:* ${takeawayNameInput.value}\n`;
                 if(takeawayNotes.value.trim()) customerDetails += `*ملاحظات:* ${takeawayNotes.value}\n`;
+            } else {
+                const tableInput = document.getElementById('tableNumber');
+                customerDetails = `*الطلب:* صالة 🍽️\n`;
+                if(tableInput.value.trim()) customerDetails += `*رقم الطاولة:* ${tableInput.value}\n`;
             }
 
             const total = calculateTotal();
@@ -1484,9 +1495,11 @@
                     const type = e.target.dataset.type;
                     elements.deliveryFields.classList.add('hidden');
                     elements.takeawayFields.classList.add('hidden');
+                    elements.dineInFields.classList.add('hidden');
 
                     if(type === 'delivery') elements.deliveryFields.classList.remove('hidden');
-                    else elements.takeawayFields.classList.remove('hidden');
+                    else if(type === 'takeaway') elements.takeawayFields.classList.remove('hidden');
+                    else elements.dineInFields.classList.remove('hidden');
                     
                     updateCartModalSummary();
                 });
