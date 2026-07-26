@@ -1,0 +1,1487 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>منيو بسملة | بيتزا وفطائر</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Light Theme - Basmala Colors (Red, Green, White) */
+            --bg-color: #f4f6f8;
+            --surface-color: #ffffff;
+            --text-main: #1a1a1a;
+            --text-muted: #6c757d;
+            --primary-color: #d32f2f; /* Red */
+            --primary-hover: #b71c1c;
+            --secondary-color: #2e7d32; /* Green */
+            --accent-color: #ffb300; /* Yellow */
+            --border-color: #e0e0e0;
+            --danger-color: #dc3545;
+            --success-color: #28a745;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 8px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 16px rgba(0,0,0,0.15);
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-full: 99px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-family: 'Cairo', sans-serif;
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme */
+            --bg-color: #121212;
+            --surface-color: #1e1e1e;
+            --text-main: #f5f5f5;
+            --text-muted: #aaaaaa;
+            --border-color: #333333;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 8px rgba(0,0,0,0.4);
+            --shadow-lg: 0 8px 16px rgba(0,0,0,0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+            padding-bottom: 90px;
+            overflow-x: hidden;
+        }
+
+        button {
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-family: inherit;
+            color: inherit;
+            outline: none;
+        }
+
+        input, textarea {
+            font-family: inherit;
+            outline: none;
+        }
+
+        h1, h2, h3, h4 { font-weight: 700; line-height: 1.3; }
+        .hidden { display: none !important; }
+
+        header {
+            background-color: var(--surface-color);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+            transition: background-color 0.3s;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary-color);
+        }
+
+        .logo-text span {
+            color: var(--secondary-color);
+        }
+
+        .theme-toggle {
+            font-size: 1.5rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            background-color: var(--bg-color);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .theme-toggle:hover { transform: scale(1.05); }
+
+        .search-container {
+            max-width: 1200px;
+            margin: 1.5rem auto 1rem;
+            padding: 0 1rem;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1rem; /* Adjusted for RTL */
+            border-radius: var(--radius-full);
+            border: 2px solid var(--border-color);
+            background-color: var(--surface-color);
+            color: var(--text-main);
+            font-size: 1rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .search-input:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 2rem; /* Adjusted for RTL */
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        .categories-wrapper {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto 1.5rem;
+            padding: 0 1rem;
+        }
+
+        .categories-nav {
+            display: flex;
+            gap: 0.75rem;
+            overflow-x: auto;
+            padding: 0.5rem 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            scroll-behavior: smooth;
+        }
+
+        .categories-nav::-webkit-scrollbar { display: none; }
+
+        .category-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--radius-full);
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            white-space: nowrap;
+            font-weight: 700;
+            color: var(--text-muted);
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .category-btn.active {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+            box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .menu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem 2rem;
+        }
+
+        .category-section-title {
+            font-size: 1.6rem;
+            color: var(--primary-color);
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-section-title::before {
+            content: '';
+            display: block;
+            width: 8px;
+            height: 24px;
+            background-color: var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .menu-card {
+            background-color: var(--surface-color);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .menu-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+        }
+
+        .card-content {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .item-name {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        .item-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+            line-height: 1.5;
+        }
+
+        .size-selector {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            background-color: var(--bg-color);
+            padding: 0.4rem;
+            border-radius: var(--radius-md);
+        }
+
+        .size-btn {
+            flex: 1;
+            padding: 0.5rem;
+            text-align: center;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .size-btn.active {
+            background-color: var(--surface-color);
+            box-shadow: var(--shadow-sm);
+            color: var(--primary-color);
+            border-color: var(--border-color);
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .item-price {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--secondary-color);
+        }
+
+        .currency {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        .card-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: auto;
+        }
+
+        .notes-input {
+            width: 100%;
+            padding: 0.6rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            resize: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .notes-input:focus { border-color: var(--primary-color); }
+
+        .add-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem;
+            border-radius: var(--radius-md);
+            font-weight: bold;
+            font-size: 1.1rem;
+            width: 100%;
+            transition: var(--transition);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .add-btn:hover { background-color: var(--primary-hover); }
+
+        .floating-cart {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-lg);
+            z-index: 90;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: calc(100% - 2rem);
+            max-width: 400px;
+            cursor: pointer;
+        }
+
+        .floating-cart.hidden {
+            transform: translateX(-50%) translateY(150px);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .cart-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .cart-badge {
+            background-color: white;
+            color: var(--secondary-color);
+            border-radius: var(--radius-full);
+            width: 28px;
+            height: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9rem;
+            font-weight: 800;
+        }
+
+        .cart-badge.pulse { animation: pulse-badge 0.4s ease-in-out; }
+
+        @keyframes pulse-badge {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4); background-color: var(--accent-color); color: #000;}
+            100% { transform: scale(1); }
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 200;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .cart-modal {
+            background-color: var(--surface-color);
+            width: 100%;
+            max-width: 600px;
+            height: 90vh;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1);
+            box-shadow: 0 -10px 20px rgba(0,0,0,0.2);
+        }
+
+        @media (min-width: 600px) {
+            .modal-overlay { align-items: center; }
+            .cart-modal {
+                height: auto;
+                max-height: 90vh;
+                border-radius: var(--radius-lg);
+            }
+        }
+
+        .modal-overlay.active .cart-modal { transform: translateY(0); }
+
+        .modal-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--surface-color);
+            border-radius: inherit;
+        }
+
+        .modal-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        
+        .close-btn:hover { background-color: var(--danger-color); color: white;}
+
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .cart-item {
+            background-color: var(--bg-color);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+            border-right: 4px solid var(--secondary-color);
+        }
+
+        .cart-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-title {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+        
+        .cart-item-meta {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 2px;
+        }
+
+        .cart-item-price-total {
+            font-weight: 900;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            white-space: nowrap;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            background-color: var(--surface-color);
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .qty-btn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .qty-btn:hover { background-color: var(--border-color); }
+
+        .qty-value {
+            width: 36px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .remove-btn {
+            color: var(--danger-color);
+            padding: 0.5rem 0.8rem;
+            background-color: rgba(220, 53, 69, 0.1);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .checkout-section {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .order-type-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+            background: var(--bg-color);
+            padding: 0.4rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .type-tab {
+            flex: 1;
+            padding: 0.8rem 0.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .type-tab.active {
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-fields input, .form-fields textarea {
+            width: 100%;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+
+        .form-fields input:focus, .form-fields textarea:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+        }
+
+        .input-error { border-color: var(--danger-color) !important; }
+
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            background-color: var(--surface-color);
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-total {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--primary-color);
+        }
+
+        .checkout-btn {
+            background-color: #25D366; /* WhatsApp Color */
+            color: white;
+            width: 100%;
+            padding: 1.2rem;
+            border-radius: var(--radius-md);
+            font-size: 1.2rem;
+            font-weight: 800;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        }
+
+        .checkout-btn:hover:not(:disabled) {
+            background-color: #128C7E;
+            transform: translateY(-2px);
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 5.5rem;
+            right: 1.5rem;
+            background-color: var(--surface-color);
+            color: var(--primary-color);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: var(--shadow-md);
+            border: 2px solid var(--primary-color);
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            z-index: 80;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .scroll-top.visible { opacity: 1; pointer-events: auto; }
+        .scroll-top:hover { background-color: var(--primary-color); color: white; }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--radius-full);
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 1000;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .toast.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .delivery-note {
+            color: var(--danger-color);
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <div class="logo-container">
+                <div class="logo-text">🍕 بسـ<span>ملة</span></div>
+            </div>
+            <div style="display: flex; gap: 8px; align-items: center;">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode">🌙</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" id="searchInput" placeholder="ابحث عن بيتزا، كريب، حواوشي...">
+    </div>
+
+    <div class="categories-wrapper">
+        <nav class="categories-nav" id="categoriesNav">
+            <!-- Categories injected here -->
+        </nav>
+    </div>
+
+    <main class="menu-container" id="menuContainer">
+        <!-- Menu sections and items injected here -->
+    </main>
+
+    <button class="floating-cart hidden" id="floatingCartBtn">
+        <div class="cart-info">
+            <span>🛒 الطلب</span>
+            <span class="cart-badge" id="cartBadge">0</span>
+        </div>
+        <span style="font-weight:900; font-size:1.2rem" id="floatingTotal">0 جنيه</span>
+    </button>
+
+    <div class="modal-overlay" id="cartModal">
+        <div class="cart-modal">
+            <div class="modal-header">
+                <div class="modal-title">🛒 سلة المشتريات</div>
+                <button class="close-btn" id="closeCartBtn">✖</button>
+            </div>
+            <div class="modal-body">
+                <div id="cartItemsContainer"></div>
+                
+                <div id="checkoutSection" class="checkout-section hidden">
+                    <h3 class="section-title">تفاصيل الطلب</h3>
+                    <div class="order-type-tabs">
+                        <button class="type-tab active" data-type="delivery">دليفري 🛵</button>
+                        <button class="type-tab" data-type="takeaway">تيك أواي 🛍️</button>
+                    </div>
+                    
+                    <div id="deliveryFields" class="form-fields">
+                        <input type="text" id="custName" placeholder="الاسم بالكامل *" required>
+                        <input type="tel" id="custPhone" placeholder="رقم التليفون *" required>
+                        <textarea id="custAddress" placeholder="العنوان بالتفصيل *" rows="2" required></textarea>
+                        <textarea id="custNotes" placeholder="ملاحظات الطلب (اختياري)" rows="1"></textarea>
+                    </div>
+
+                    <div id="takeawayFields" class="form-fields hidden">
+                        <input type="text" id="takeawayName" placeholder="اسم المستلم *" required>
+                        <textarea id="takeawayNotes" placeholder="ملاحظات الطلب (اختياري)" rows="1"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="summary-row">
+                    <span style="font-size: 1.2rem; font-weight: 700;">الإجمالي:</span>
+                    <span class="summary-total" id="cartTotal">0 جنيه</span>
+                </div>
+                <div id="deliveryNoteCont" class="delivery-note">
+                    * تضاف مصاريف التوصيل وتحدد حسب المنطقة *
+                </div>
+                <button class="checkout-btn" id="checkoutBtn">
+                    إرسال الطلب عبر واتساب 💬
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <button class="scroll-top" id="scrollTopBtn" aria-label="أعلى">↑</button>
+
+    <div class="toast" id="toastMsg">
+        <span id="toastIcon">✅</span>
+        <span id="toastText">تمت الإضافة بنجاح</span>
+    </div>
+
+    <script>
+        const WHATSAPP_NUMBER = "+201003583911";
+        
+        // Data Extraction & Applied Price Rules:
+        // Large: +16 | Medium: +10 | Small: +5
+        // Hawawshi, Crepe, Pasta, Twister, Sandwiches, Sides: +5
+        const menuData = [
+            {
+                id: 'cat_pizza_cheese',
+                name: 'بيتزا الجبن والخضروات',
+                icon: '🍕',
+                items: [
+                    { id: 'pc1', name: 'بيتزا مارجريتا', desc: 'صوص طماطم، فلفل، زيتون، موتزاريلا', sizes: { 'صغير': 90, 'وسط': 105, 'كبير': 166 } },
+                    { id: 'pc2', name: 'بيتزا خضروات', desc: 'صوص طماطم، رومي، موتزاريلا', sizes: { 'صغير': 100, 'وسط': 110, 'كبير': 181 } },
+                    { id: 'pc3', name: 'بيتزا مشروم', desc: 'مشروم، صوص طماطم، فلفل، زيتون، موتزاريلا', sizes: { 'صغير': 105, 'وسط': 145, 'كبير': 211 } },
+                    { id: 'pc4', name: 'بيتزا كيري', desc: 'كيري، رومي، صوص طماطم، فلفل، زيتون، موتزاريلا', sizes: { 'صغير': 105, 'وسط': 145, 'كبير': 216 } },
+                    { id: 'pc5', name: 'بيتزا مشكل جبن', desc: 'كيري، رومي، صوص طماطم، فلفل، زيتون، موتزاريلا', sizes: { 'صغير': 115, 'وسط': 150, 'كبير': 221 } }
+                ]
+            },
+            {
+                id: 'cat_pizza_meat',
+                name: 'بيتزا اللحوم',
+                icon: '🥩',
+                items: [
+                    { id: 'pm1', name: 'بيتزا لحمة مفرومة', desc: 'لحم مفروم، صوص طماطم، فلفل، زيتون، موتزاريلا', sizes: { 'صغير': 115, 'وسط': 150, 'كبير': 221 } },
+                    { id: 'pm2', name: 'بيتزا سوسيس', desc: 'سوسيس، صوص طماطم، فلفل، زيتون، موتزاريلا', sizes: { 'صغير': 110, 'وسط': 145, 'كبير': 216 } },
+                    { id: 'pm3', name: 'بيتزا سجق', desc: 'سجق، صوص طماطم، فلفل، زيتون، موتزاريلا', sizes: { 'صغير': 110, 'وسط': 145, 'كبير': 216 } },
+                    { id: 'pm4', name: 'بيتزا بسطرمة', desc: 'بسطرمة، صوص طماطم، فلفل، زيتون، موتزاريلا', sizes: { 'صغير': 115, 'وسط': 150, 'كبير': 221 } },
+                    { id: 'pm5', name: 'بيتزا سلامي', desc: 'سلامي، صوص طماطم، فلفل، زيتون، موتزاريلا', sizes: { 'صغير': 115, 'وسط': 150, 'كبير': 221 } },
+                    { id: 'pm6', name: 'بيتزا روز بيف', desc: 'روز بيف، صوص طماطم، فلفل، زيتون، موتزاريلا', sizes: { 'صغير': 115, 'وسط': 150, 'كبير': 221 } },
+                    { id: 'pm7', name: 'بيتزا مشكل لحوم', desc: 'مشكل لحوم، صوص طماطم، فلفل، زيتون، موتزاريلا', sizes: { 'صغير': 130, 'وسط': 165, 'كبير': 256 } },
+                    { id: 'pm8', name: 'بيتزا سوبر سوبريم', desc: 'مشكل لحوم، مشروم، صوص طماطم، فلفل، زيتون، موتزاريلا', sizes: { 'صغير': 120, 'وسط': 160, 'كبير': 251 } },
+                    { id: 'pm9', name: 'بيتزا سوبر بسملة', desc: 'مشكل لحوم، مشكل جبن، موتزاريلا', sizes: { 'صغير': 145, 'وسط': 180, 'كبير': 276 } }
+                ]
+            },
+            {
+                id: 'cat_pizza_chicken',
+                name: 'بيتزا الدجاج',
+                icon: '🍗',
+                items: [
+                    { id: 'pch1', name: 'بيتزا فراخ', desc: 'فراخ، صوص طماطم، فلفل، زيتون، موتزاريلا', sizes: { 'صغير': 115, 'وسط': 150, 'كبير': 221 } },
+                    { id: 'pch2', name: 'بيتزا فراخ (باربيكيو)', desc: 'فراخ، صوص باربيكيو، فلفل، طماطم، موتزاريلا', sizes: { 'صغير': 125, 'وسط': 160, 'كبير': 236 } },
+                    { id: 'pch3', name: 'بيتزا مشكل فراخ', desc: 'مشكل فراخ، صوص طماطم، فلفل، زيتون، موتزاريلا', sizes: { 'صغير': 115, 'وسط': 150, 'كبير': 226 } },
+                    { id: 'pch4', name: 'بيتزا فراخ رانش', desc: 'فراخ، رانش، صوص طماطم، فلفل، زيتون، موتزاريلا', sizes: { 'صغير': 130, 'وسط': 160, 'كبير': 236 } },
+                    { id: 'pch5', name: 'بيتزا ديك رومي', desc: 'فراخ، ديك رومي، صوص طماطم، فلفل، زيتون، موتزاريلا', sizes: { 'صغير': 115, 'وسط': 150, 'كبير': 221 } },
+                    { id: 'pch6', name: 'بيتزا فراخ مخصوص', desc: 'فراخ، سوسيس، مشروم، خضروات', sizes: { 'صغير': 125, 'وسط': 160, 'كبير': 236 } }
+                ]
+            },
+            {
+                id: 'cat_pizza_seafood',
+                name: 'بيتزا أسماك',
+                icon: '🦐',
+                items: [
+                    { id: 'ps1', name: 'بيتزا تونة', desc: 'تونة، صوص طماطم، فلفل، زيتون، موتزاريلا', sizes: { 'صغير': 135, 'وسط': 160, 'كبير': 231 } },
+                    { id: 'ps2', name: 'بيتزا أنشوجة', desc: 'أنشوجة، صوص طماطم، فلفل، زيتون، موتزاريلا', sizes: { 'صغير': 145, 'وسط': 170, 'كبير': 241 } },
+                    { id: 'ps3', name: 'بيتزا جمبري', desc: 'جمبري، صوص طماطم، فلفل، زيتون، موتزاريلا', sizes: { 'صغير': 145, 'وسط': 170, 'كبير': 246 } },
+                    { id: 'ps4', name: 'بيتزا سي فود', desc: 'تونة، جمبري، سبيط، صوص طماطم، فلفل، زيتون، موتزاريلا', sizes: { 'صغير': 155, 'وسط': 180, 'كبير': 266 } }
+                ]
+            },
+            {
+                id: 'cat_feteer_salty',
+                name: 'الفطير الحادق',
+                icon: '🥧',
+                items: [
+                    { id: 'fs1', name: 'فطيرة جبنة رومي', desc: 'جبنة رومي، فلفل، زيتون، طماطم', sizes: { 'وسط': 130, 'كبير': 196 } },
+                    { id: 'fs2', name: 'فطيرة كيري', desc: 'كيري، فلفل، طماطم، زيتون، رومي', sizes: { 'وسط': 140, 'كبير': 206 } },
+                    { id: 'fs3', name: 'فطيرة موتزاريلا', sizes: { 'وسط': 130, 'كبير': 196 } },
+                    { id: 'fs4', name: 'فطيرة مشكل جبن', sizes: { 'وسط': 150, 'كبير': 226 } },
+                    { id: 'fs5', name: 'فطيرة بيض ورومي', sizes: { 'وسط': 145, 'كبير': 221 } },
+                    { id: 'fs6', name: 'فطيرة مشروم + موتزاريلا', sizes: { 'وسط': 145, 'كبير': 216 } },
+                    { id: 'fs7', name: 'فطيرة لحمة مفرومة', sizes: { 'وسط': 150, 'كبير': 226 } },
+                    { id: 'fs8', name: 'فطيرة سجق', sizes: { 'وسط': 150, 'كبير': 226 } },
+                    { id: 'fs9', name: 'فطيرة سوسيس', sizes: { 'وسط': 150, 'كبير': 226 } },
+                    { id: 'fs10', name: 'فطيرة بسطرمة', sizes: { 'وسط': 155, 'كبير': 231 } },
+                    { id: 'fs11', name: 'فطيرة سلامي', sizes: { 'وسط': 150, 'كبير': 231 } },
+                    { id: 'fs12', name: 'فطيرة روز بيف', sizes: { 'وسط': 150, 'كبير': 226 } },
+                    { id: 'fs13', name: 'فطيرة مشكل لحوم', sizes: { 'وسط': 165, 'كبير': 256 } },
+                    { id: 'fs14', name: 'فطيرة سوبر سوبريم', sizes: { 'وسط': 165, 'كبير': 256 } },
+                    { id: 'fs15', name: 'فطيرة سوبر بسملة', desc: 'مشكل لحوم + مشكل جبن', sizes: { 'وسط': 180, 'كبير': 286 } },
+                    { id: 'fs16', name: 'فطيرة فراخ', sizes: { 'وسط': 150, 'كبير': 226 } },
+                    { id: 'fs17', name: 'فطيرة فراخ باربيكيو', sizes: { 'وسط': 160, 'كبير': 246 } },
+                    { id: 'fs18', name: 'فطيرة فراخ رانش', sizes: { 'وسط': 160, 'كبير': 246 } },
+                    { id: 'fs19', name: 'فطيرة مشكل فراخ', sizes: { 'وسط': 155, 'كبير': 231 } },
+                    { id: 'fs20', name: 'فطيرة تونة', sizes: { 'وسط': 160, 'كبير': 231 } },
+                    { id: 'fs21', name: 'فطيرة جمبري', sizes: { 'وسط': 170, 'كبير': 241 } },
+                    { id: 'fs22', name: 'فطيرة سي فود', sizes: { 'وسط': 180, 'كبير': 266 } }
+                ]
+            },
+            {
+                id: 'cat_feteer_sweet',
+                name: 'الفطير الحلو',
+                icon: '🍯',
+                items: [
+                    { id: 'fsw1', name: 'فطيرة سكر ولبن', sizes: { 'وسط': 55, 'كبير': 76 } },
+                    { id: 'fsw2', name: 'فطيرة كاسترد', sizes: { 'وسط': 70, 'كبير': 96 } },
+                    { id: 'fsw3', name: 'فطيرة لوتس', desc: 'كاسترد، كريمة، بسكويت لوتس', sizes: { 'وسط': 115, 'كبير': 186 } },
+                    { id: 'fsw4', name: 'فطيرة شيكولاتة', sizes: { 'وسط': 105, 'كبير': 186 } },
+                    { id: 'fsw5', name: 'فطيرة نوتيلا', sizes: { 'وسط': 130, 'كبير': 201 } },
+                    { id: 'fsw6', name: 'فطيرة فستق', sizes: { 'وسط': 140, 'كبير': 206 } },
+                    { id: 'fsw7', name: 'فطيرة شيكولاتة بندق', sizes: { 'وسط': 150, 'كبير': 206 } },
+                    { id: 'fsw8', name: 'فطيرة شيكولاتة موز', sizes: { 'وسط': 140, 'كبير': 196 } },
+                    { id: 'fsw9', name: 'فطيرة عسل', sizes: { 'وسط': 90, 'كبير': 156 } },
+                    { id: 'fsw10', name: 'فطيرة موز', sizes: { 'وسط': 95, 'كبير': 166 } },
+                    { id: 'fsw11', name: 'فطيرة تفاح', sizes: { 'وسط': 90, 'كبير': 156 } },
+                    { id: 'fsw12', name: 'فطيرة قشطة وعسل', sizes: { 'وسط': 100, 'كبير': 176 } },
+                    { id: 'fsw13', name: 'فطيرة مكسرات', sizes: { 'وسط': 130, 'كبير': 206 } },
+                    { id: 'fsw14', name: 'فطيرة قشطة ومكسرات وعسل', sizes: { 'وسط': 150, 'كبير': 226 } },
+                    { id: 'fsw15', name: 'فطيرة بسبوسة', sizes: { 'وسط': 100, 'كبير': 156 } },
+                    { id: 'fsw16', name: 'فطيرة بسبوسة بالقشطة', sizes: { 'وسط': 130, 'كبير': 166 } },
+                    { id: 'fsw17', name: 'فطيرة قرفة', sizes: { 'وسط': 90, 'كبير': 146 } }
+                ]
+            },
+            {
+                id: 'cat_meshaltet',
+                name: 'فطير مشلتت',
+                icon: '🧈',
+                items: [
+                    { id: 'm1', name: 'فطير مشلتت بالسمن البلدي', sizes: { 'صغير': 135, 'وسط': 160, 'كبير': 206 } }
+                ]
+            },
+            {
+                id: 'cat_crepe',
+                name: 'كريب',
+                icon: '🌯',
+                items: [
+                    { id: 'cr1', name: 'كريب بطاطس', sizes: { 'سعر موحد': 65 } },
+                    { id: 'cr2', name: 'كريب مشروم', sizes: { 'سعر موحد': 85 } },
+                    { id: 'cr3', name: 'كريب برجر لحمة', sizes: { 'سعر موحد': 85 } },
+                    { id: 'cr4', name: 'كريب كفتة', sizes: { 'سعر موحد': 85 } },
+                    { id: 'cr5', name: 'كريب سوسيس', sizes: { 'سعر موحد': 85 } },
+                    { id: 'cr6', name: 'كريب شاورما فراخ', sizes: { 'سعر موحد': 100 } },
+                    { id: 'cr7', name: 'كريب شيش طاووق', sizes: { 'سعر موحد': 100 } },
+                    { id: 'cr8', name: 'كريب فاهيتا فراخ', sizes: { 'سعر موحد': 100 } },
+                    { id: 'cr9', name: 'كريب فراخ بانيه', sizes: { 'سعر موحد': 85 } },
+                    { id: 'cr10', name: 'كريب كرسبي', sizes: { 'سعر موحد': 85 } },
+                    { id: 'cr11', name: 'كريب سوبر كرانشي', sizes: { 'سعر موحد': 100 } },
+                    { id: 'cr12', name: 'كريب استربس', sizes: { 'سعر موحد': 95 } },
+                    { id: 'cr13', name: 'كريب مشكل جبن', sizes: { 'سعر موحد': 100 } },
+                    { id: 'cr14', name: 'كريب مشكل لحوم (بسملة)', sizes: { 'سعر موحد': 120 } },
+                    { id: 'cr15', name: 'كريب مشكل فراخ', sizes: { 'سعر موحد': 120 } },
+                    { id: 'cr16', name: 'كريب تونة', sizes: { 'سعر موحد': 120 } },
+                    { id: 'cr17', name: 'كريب بسطرمة', sizes: { 'سعر موحد': 125 } }
+                ]
+            },
+            {
+                id: 'cat_hawawshi',
+                name: 'حواوشي إيطالي',
+                icon: '🫓',
+                items: [
+                    { id: 'hw1', name: 'حواوشي لحمة', sizes: { 'سعر موحد': 90 } },
+                    { id: 'hw2', name: 'حواوشي سجق', sizes: { 'سعر موحد': 85 } },
+                    { id: 'hw3', name: 'حواوشي سوسيس', sizes: { 'سعر موحد': 85 } },
+                    { id: 'hw4', name: 'حواوشي لحمة + موتزاريلا', sizes: { 'سعر موحد': 100 } },
+                    { id: 'hw5', name: 'حواوشي سجق + موتزاريلا', sizes: { 'سعر موحد': 95 } },
+                    { id: 'hw6', name: 'حواوشي مشكل جبن', sizes: { 'سعر موحد': 110 } },
+                    { id: 'hw7', name: 'حواوشي فراخ + موتزاريلا', sizes: { 'سعر موحد': 110 } },
+                    { id: 'hw8', name: 'حواوشي تونة + موتزاريلا', sizes: { 'سعر موحد': 120 } },
+                    { id: 'hw9', name: 'حواوشي كرسبي حار + موتزاريلا', sizes: { 'سعر موحد': 110 } }
+                ]
+            },
+            {
+                id: 'cat_pasta',
+                name: 'المكرونة',
+                icon: '🍝',
+                items: [
+                    { id: 'pa1', name: 'مكرونة خضروات', sizes: { 'سعر موحد': 65 } },
+                    { id: 'pa2', name: 'مكرونة سوسيس (صوص أحمر)', sizes: { 'سعر موحد': 80 } },
+                    { id: 'pa3', name: 'مكرونة سجق (صوص أحمر)', sizes: { 'سعر موحد': 80 } },
+                    { id: 'pa4', name: 'مكرونة لحمة مفرومة (صوص أحمر)', sizes: { 'سعر موحد': 85 } },
+                    { id: 'pa5', name: 'مكرونة بشاميل لحمة', sizes: { 'سعر موحد': 100 } },
+                    { id: 'pa6', name: 'مكرونة بشاميل فراخ', sizes: { 'سعر موحد': 100 } },
+                    { id: 'pa7', name: 'مكرونة نجرسكو (فراخ+مشروم)', sizes: { 'سعر موحد': 105 } },
+                    { id: 'pa8', name: 'مكرونة استربس (صوص أبيض)', sizes: { 'سعر موحد': 100 } }
+                ]
+            },
+            {
+                id: 'cat_twister',
+                name: 'تويستر',
+                icon: '🌯',
+                items: [
+                    { id: 'tw1', name: 'تويستر فراخ', sizes: { 'سعر موحد': 115 } },
+                    { id: 'tw2', name: 'تويستر تشكن BBQ', sizes: { 'سعر موحد': 125 } },
+                    { id: 'tw3', name: 'تويستر سوبر كرانشي', sizes: { 'سعر موحد': 130 } },
+                    { id: 'tw4', name: 'تويستر مشكل لحوم', sizes: { 'سعر موحد': 145 } },
+                    { id: 'tw5', name: 'تويستر سي فود', sizes: { 'سعر موحد': 175 } },
+                    { id: 'tw6', name: 'تويستر سوبر بسملة', sizes: { 'سعر موحد': 160 } }
+                ]
+            },
+            {
+                id: 'cat_sandwiches',
+                name: 'سندوتشات سوري',
+                icon: '🌮',
+                items: [
+                    { id: 'sw1', name: 'سندوتش بطاطس', sizes: { 'كبير': 40 } },
+                    { id: 'sw2', name: 'سندوتش بانيه', sizes: { 'كبير': 55 } },
+                    { id: 'sw3', name: 'سندوتش سوسيس', sizes: { 'كبير': 55 } },
+                    { id: 'sw4', name: 'سندوتش سجق', sizes: { 'كبير': 65 } },
+                    { id: 'sw5', name: 'سندوتش استربس حار', sizes: { 'كبير': 60 } },
+                    { id: 'sw6', name: 'سندوتش شيش طاووق', sizes: { 'كبير': 75 } },
+                    { id: 'sw7', name: 'سندوتش فاهيتا فراخ', sizes: { 'كبير': 75 } }
+                ]
+            },
+            {
+                id: 'cat_sides',
+                name: 'مقبلات وإضافات',
+                icon: '🍟',
+                items: [
+                    { id: 'sd1', name: 'بطاطس محمرة', sizes: { 'سعر موحد': 25 } },
+                    { id: 'sd2', name: 'مخلل', sizes: { 'سعر موحد': 10 } },
+                    { id: 'sd3', name: 'علبة صوص رانش', sizes: { 'سعر موحد': 25 } },
+                    { id: 'sd4', name: 'علبة باربيكيو', sizes: { 'سعر موحد': 25 } },
+                    { id: 'sd5', name: 'إضافة حشو أطراف (ستافت كراست)', sizes: { 'صغير': 45, 'وسط': 55, 'كبير': 60 } }, /* Assumed large based on +5 logic */
+                    { id: 'sd6', name: 'إضافة لحوم أو مشروم', sizes: { 'صغير': 45, 'وسط': 55, 'كبير': 60 } },
+                    { id: 'sd7', name: 'إضافة أسماك', sizes: { 'صغير': 55, 'وسط': 70, 'كبير': 80 } },
+                    { id: 'sd8', name: 'إضافة جبن', sizes: { 'صغير': 45, 'وسط': 55, 'كبير': 60 } }
+                ]
+            }
+        ];
+
+        let cart = JSON.parse(localStorage.getItem('basmala_cart')) || [];
+        let currentCategory = 'all';
+        let searchQuery = '';
+
+        const elements = {
+            categoriesNav: document.getElementById('categoriesNav'),
+            menuContainer: document.getElementById('menuContainer'),
+            searchInput: document.getElementById('searchInput'),
+            cartBadge: document.getElementById('cartBadge'),
+            floatingCartBtn: document.getElementById('floatingCartBtn'),
+            floatingTotal: document.getElementById('floatingTotal'),
+            cartModal: document.getElementById('cartModal'),
+            closeCartBtn: document.getElementById('closeCartBtn'),
+            cartItemsContainer: document.getElementById('cartItemsContainer'),
+            checkoutSection: document.getElementById('checkoutSection'),
+            typeTabs: document.querySelectorAll('.type-tab'),
+            deliveryFields: document.getElementById('deliveryFields'),
+            takeawayFields: document.getElementById('takeawayFields'),
+            cartTotalDisplay: document.getElementById('cartTotal'),
+            checkoutBtn: document.getElementById('checkoutBtn'),
+            themeToggle: document.getElementById('themeToggle'),
+            scrollTopBtn: document.getElementById('scrollTopBtn'),
+            toastMsg: document.getElementById('toastMsg'),
+            deliveryNoteCont: document.getElementById('deliveryNoteCont')
+        };
+
+        function init() {
+            const savedTheme = localStorage.getItem('basmala_theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeIcon();
+
+            renderCategories();
+            renderMenu();
+            updateCartUI();
+            setupEventListeners();
+        }
+
+        function toggleTheme() {
+            const root = document.documentElement;
+            const newTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', newTheme);
+            localStorage.setItem('basmala_theme', newTheme);
+            updateThemeIcon();
+        }
+
+        function updateThemeIcon() {
+            elements.themeToggle.innerText = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+        }
+
+        function renderCategories() {
+            let html = `<button class="category-btn active" data-cat="all">كل المنيو</button>`;
+            menuData.forEach(cat => {
+                html += `<button class="category-btn" data-cat="${cat.id}">${cat.icon} ${cat.name}</button>`;
+            });
+            elements.categoriesNav.innerHTML = html;
+        }
+
+        function renderMenu() {
+            elements.menuContainer.innerHTML = '';
+            let hasResults = false;
+            
+            menuData.forEach(category => {
+                if (currentCategory !== 'all' && currentCategory !== category.id) return;
+
+                const searchLower = searchQuery.toLowerCase();
+                const filteredItems = category.items.filter(item => {
+                    return item.name.toLowerCase().includes(searchLower) || 
+                           (item.desc && item.desc.toLowerCase().includes(searchLower));
+                });
+
+                if (filteredItems.length === 0) return;
+                hasResults = true;
+
+                const sectionTitle = document.createElement('h2');
+                sectionTitle.className = 'category-section-title';
+                sectionTitle.innerHTML = `${category.icon} ${category.name}`;
+                elements.menuContainer.appendChild(sectionTitle);
+
+                const grid = document.createElement('div');
+                grid.className = 'menu-grid';
+
+                filteredItems.forEach(item => {
+                    const sizes = Object.keys(item.sizes);
+                    const initialSize = sizes[0];
+                    const initialPrice = item.sizes[initialSize];
+                    
+                    let sizeSelectorHtml = '';
+                    if (sizes.length > 1 && !(sizes.length === 1 && sizes[0] === 'سعر موحد')) {
+                        sizeSelectorHtml = `<div class="size-selector">`;
+                        sizes.forEach((s, index) => {
+                            sizeSelectorHtml += `
+                                <button class="size-btn ${index === 0 ? 'active' : ''}" 
+                                        onclick="changeCardSize(this, '${item.id}', '${s}', ${item.sizes[s]})">
+                                    ${s}
+                                </button>
+                            `;
+                        });
+                        sizeSelectorHtml += `</div>`;
+                    }
+
+                    const cardHtml = `
+                        <div class="menu-card" data-id="${item.id}">
+                            <div class="card-content">
+                                <h3 class="item-name">${item.name}</h3>
+                                ${item.desc ? `<p class="item-desc">${item.desc}</p>` : '<div style="flex-grow:1"></div>'}
+                                ${sizeSelectorHtml}
+                                <div class="price-row">
+                                    <span class="item-price" id="price-${item.id}">${initialPrice} <span class="currency">جنيه</span></span>
+                                </div>
+                                <div class="card-actions">
+                                    <textarea class="notes-input" id="note-${item.id}" placeholder="ملاحظات (اختياري)..." rows="1"></textarea>
+                                    <button class="add-btn" onclick="addToCart('${item.id}', '${item.name.replace(/'/g, "\\'")}', '${initialSize}')">
+                                        إضافة للطلب +
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    grid.insertAdjacentHTML('beforeend', cardHtml);
+                });
+                elements.menuContainer.appendChild(grid);
+            });
+
+            if (!hasResults) {
+                elements.menuContainer.innerHTML = `
+                    <div style="text-align: center; padding: 4rem 1rem; color: var(--text-muted);">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
+                        <h3>لا توجد نتائج</h3>
+                        <p>حاول البحث بكلمات أخرى.</p>
+                    </div>`;
+            }
+        }
+
+        window.changeCardSize = function(btnElement, itemId, newSize, newPrice) {
+            const container = btnElement.parentElement;
+            container.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+            btnElement.classList.add('active');
+            
+            document.getElementById(`price-${itemId}`).innerHTML = `${newPrice} <span class="currency">جنيه</span>`;
+            
+            const card = document.querySelector(`.menu-card[data-id="${itemId}"]`);
+            const addBtn = card.querySelector('.add-btn');
+            
+            let itemName = '';
+            for(let cat of menuData) {
+                let found = cat.items.find(i => i.id === itemId);
+                if(found) { itemName = found.name; break; }
+            }
+
+            addBtn.setAttribute('onclick', `addToCart('${itemId}', '${itemName.replace(/'/g, "\\'")}', '${newSize}')`);
+        };
+
+        window.addToCart = function(itemId, name, size) {
+            let itemData;
+            for(let cat of menuData) {
+                let found = cat.items.find(i => i.id === itemId);
+                if(found) { itemData = found; break; }
+            }
+            
+            const price = itemData.sizes[size];
+            const notesInput = document.getElementById(`note-${itemId}`);
+            const notes = notesInput ? notesInput.value.trim() : '';
+
+            const existingItemIndex = cart.findIndex(i => i.id === itemId && i.size === size && i.notes === notes);
+
+            if (existingItemIndex > -1) {
+                cart[existingItemIndex].qty += 1;
+            } else {
+                cart.push({
+                    cartId: Date.now().toString(),
+                    id: itemId,
+                    name: name,
+                    size: size,
+                    price: price,
+                    qty: 1,
+                    notes: notes
+                });
+            }
+
+            if(notesInput) notesInput.value = '';
+            saveCart();
+            updateCartUI();
+            showToast('تمت الإضافة للطلب', 'success');
+            
+            elements.cartBadge.classList.remove('pulse');
+            void elements.cartBadge.offsetWidth;
+            elements.cartBadge.classList.add('pulse');
+        };
+
+        window.updateQty = function(cartId, delta) {
+            const index = cart.findIndex(i => i.cartId === cartId);
+            if (index > -1) {
+                cart[index].qty += delta;
+                if (cart[index].qty <= 0) cart.splice(index, 1);
+                saveCart();
+                renderCartModal();
+                updateCartUI();
+            }
+        };
+
+        window.removeItem = function(cartId) {
+            cart = cart.filter(i => i.cartId !== cartId);
+            saveCart();
+            renderCartModal();
+            updateCartUI();
+        };
+
+        function saveCart() { localStorage.setItem('basmala_cart', JSON.stringify(cart)); }
+
+        function calculateTotal() { return cart.reduce((sum, item) => sum + (item.price * item.qty), 0); }
+
+        function updateCartUI() {
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalAmount = calculateTotal();
+
+            elements.cartBadge.innerText = totalItems;
+            elements.floatingTotal.innerText = `${totalAmount} جنيه`;
+
+            if (totalItems > 0) {
+                elements.floatingCartBtn.classList.remove('hidden');
+            } else {
+                elements.floatingCartBtn.classList.add('hidden');
+                if(elements.cartModal.parentElement.classList.contains('active')) toggleCartModal();
+            }
+        }
+
+        function renderCartModal() {
+            elements.cartItemsContainer.innerHTML = '';
+
+            if (cart.length === 0) {
+                elements.cartTotalDisplay.innerText = '0 جنيه';
+                elements.checkoutBtn.disabled = true;
+                elements.checkoutSection.classList.add('hidden');
+                elements.deliveryNoteCont.style.display = 'none';
+                return;
+            }
+
+            elements.checkoutBtn.disabled = false;
+            elements.checkoutSection.classList.remove('hidden');
+
+            cart.forEach(item => {
+                const sizeLabel = (item.size !== 'سعر موحد' && item.size !== 'Standard') ? `(${item.size})` : '';
+                const itemTotal = item.price * item.qty;
+
+                const html = `
+                    <div class="cart-item">
+                        <div class="cart-item-header">
+                            <div>
+                                <div class="cart-item-title">${item.name} <span style="font-weight:normal; font-size:0.9rem">${sizeLabel}</span></div>
+                                <div class="cart-item-meta">${item.price} جنيه</div>
+                            </div>
+                            <div class="cart-item-price-total">${itemTotal} جنيه</div>
+                        </div>
+                        ${item.notes ? `<div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:10px;">ملاحظة: ${item.notes}</div>` : ''}
+                        <div class="cart-item-actions">
+                            <div class="qty-controls">
+                                <button class="qty-btn" onclick="updateQty('${item.cartId}', 1)">+</button>
+                                <span class="qty-value">${item.qty}</span>
+                                <button class="qty-btn" onclick="updateQty('${item.cartId}', -1)">−</button>
+                            </div>
+                            <button class="remove-btn" onclick="removeItem('${item.cartId}')">🗑️ حذف</button>
+                        </div>
+                    </div>
+                `;
+                elements.cartItemsContainer.insertAdjacentHTML('beforeend', html);
+            });
+
+            updateCartModalSummary();
+        }
+
+        function updateCartModalSummary() {
+            const total = calculateTotal();
+            elements.cartTotalDisplay.innerText = `${total} جنيه`;
+            
+            const activeTab = document.querySelector('.type-tab.active').dataset.type;
+            if(activeTab === 'delivery') {
+                elements.deliveryNoteCont.style.display = 'block';
+            } else {
+                elements.deliveryNoteCont.style.display = 'none';
+            }
+        }
+
+        function toggleCartModal() {
+            const overlay = document.getElementById('cartModal');
+            if (overlay.classList.contains('active')) {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            } else {
+                if(cart.length === 0) return;
+                renderCartModal();
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            const text = document.getElementById('toastText');
+            const icon = document.getElementById('toastIcon');
+            const toast = document.getElementById('toastMsg');
+            
+            text.innerText = message;
+            if(type === 'error') {
+                toast.style.backgroundColor = 'var(--danger-color)';
+                icon.innerText = '⚠️';
+            } else {
+                toast.style.backgroundColor = 'var(--success-color)';
+                icon.innerText = '✅';
+            }
+            
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function generateWhatsAppMessage() {
+            if (cart.length === 0) return;
+
+            const activeTab = document.querySelector('.type-tab.active').dataset.type;
+            let customerDetails = '';
+            let isValid = true;
+
+            document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+
+            if (activeTab === 'delivery') {
+                const nameInput = document.getElementById('custName');
+                const phoneInput = document.getElementById('custPhone');
+                const addressInput = document.getElementById('custAddress');
+                const notesInput = document.getElementById('custNotes');
+
+                if (!nameInput.value.trim()) { nameInput.classList.add('input-error'); isValid = false; }
+                if (!phoneInput.value.trim()) { phoneInput.classList.add('input-error'); isValid = false; }
+                if (!addressInput.value.trim()) { addressInput.classList.add('input-error'); isValid = false; }
+
+                if (!isValid) {
+                    showToast('برجاء ملء جميع الحقول المطلوبة', 'error');
+                    return;
+                }
+
+                customerDetails = `*الطلب:* دليفري 🛵\n*الاسم:* ${nameInput.value}\n*الموبايل:* ${phoneInput.value}\n*العنوان:* ${addressInput.value}\n`;
+                if(notesInput.value.trim()) customerDetails += `*ملاحظات إضافية:* ${notesInput.value}\n`;
+
+            } else {
+                const takeawayNameInput = document.getElementById('takeawayName');
+                const takeawayNotes = document.getElementById('takeawayNotes');
+                
+                if (!takeawayNameInput.value.trim()) { 
+                    takeawayNameInput.classList.add('input-error'); 
+                    isValid = false; 
+                }
+
+                if (!isValid) {
+                    showToast('برجاء كتابة اسم المستلم', 'error');
+                    return;
+                }
+
+                customerDetails = `*الطلب:* تيك أواي 🛍️\n*اسم المستلم:* ${takeawayNameInput.value}\n`;
+                if(takeawayNotes.value.trim()) customerDetails += `*ملاحظات:* ${takeawayNotes.value}\n`;
+            }
+
+            const total = calculateTotal();
+            let message = `🍕 *طلب جديد من منيو بسملة*\n\n`;
+            message += `${customerDetails}\n`;
+            message += `--------------------\n\n`;
+
+            cart.forEach(item => {
+                const sizeStr = (item.size !== 'سعر موحد' && item.size !== 'Standard') ? `(حجم: ${item.size})` : '';
+                message += `• ${item.name} ${sizeStr} -- العدد: ${item.qty}\n`;
+                if (item.notes) message += `  - ملاحظة: ${item.notes}\n`;
+            });
+
+            message += `\n--------------------\n`;
+            message += `*الإجمالي:* ${total} جنيه\n\n`;
+            
+            if (activeTab === 'delivery') {
+                message += `*(ملاحظة: تضاف رسوم التوصيل على إجمالي الفاتورة وتحدد حسب المنطقة)*\n\n`;
+            }
+
+            const encodedMessage = encodeURIComponent(message);
+            const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+            window.open(waUrl, '_blank');
+        }
+
+        function setupEventListeners() {
+            elements.categoriesNav.addEventListener('click', (e) => {
+                if (e.target.tagName === 'BUTTON') {
+                    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                    e.target.classList.add('active');
+                    currentCategory = e.target.getAttribute('data-cat');
+                    renderMenu();
+                    
+                    const offset = document.querySelector('header').offsetHeight + document.querySelector('.search-container').offsetHeight;
+                    window.scrollTo({ top: offset, behavior: 'smooth' });
+                }
+            });
+
+            elements.searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value;
+                renderMenu();
+            });
+
+            elements.typeTabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    elements.typeTabs.forEach(t => t.classList.remove('active'));
+                    e.target.classList.add('active');
+                    
+                    const type = e.target.dataset.type;
+                    elements.deliveryFields.classList.add('hidden');
+                    elements.takeawayFields.classList.add('hidden');
+
+                    if(type === 'delivery') elements.deliveryFields.classList.remove('hidden');
+                    else elements.takeawayFields.classList.remove('hidden');
+                    
+                    updateCartModalSummary();
+                });
+            });
+
+            elements.floatingCartBtn.addEventListener('click', toggleCartModal);
+            elements.closeCartBtn.addEventListener('click', toggleCartModal);
+            
+            document.getElementById('cartModal').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('cartModal')) toggleCartModal();
+            });
+
+            elements.checkoutBtn.addEventListener('click', generateWhatsAppMessage);
+            elements.themeToggle.addEventListener('click', toggleTheme);
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) elements.scrollTopBtn.classList.add('visible');
+                else elements.scrollTopBtn.classList.remove('visible');
+            });
+
+            elements.scrollTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
